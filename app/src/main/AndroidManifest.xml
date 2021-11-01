@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DayTripper">
         <activity
-            android:name=".MainActivity"
+            android:name=".DayTripperActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
