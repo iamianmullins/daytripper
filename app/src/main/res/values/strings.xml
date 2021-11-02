@@ -3,4 +3,5 @@
     <string name="button_addDayTrip">Add Day Trip</string>
     <string name="hint_DayTripTitle">Trip Name</string>
     <string name="hint_DayTripDescription">Trip Description </string>
+    <string name="menu_addDayTrip">Add</string>
 </resources>
