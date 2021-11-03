@@ -4,4 +4,7 @@
     <string name="hint_DayTripTitle">Trip Name</string>
     <string name="hint_DayTripDescription">Trip Description </string>
     <string name="menu_addDayTrip">Add</string>
+    <string name="menu_cancelDayTrip">Cancel</string>
+    <string name="enter_daytrip_title"> Please enter a Day Trip Name </string>
+    <string name="save_daytrip"> Save Day Trip </string>
 </resources>
