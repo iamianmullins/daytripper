@@ -9,4 +9,7 @@
     <string name="save_daytrip"> Save Day Trip </string>
     <string name="button_addImage"> Add Image </string>
     <string name="select_daytrip_image">Select DayTrip image</string>
+    <string name="reportTitle">DayTripper Report</string>
+    <string name="action_create">Add Trip</string>
+    <string name="action_report">Trip Report</string>
 </resources>

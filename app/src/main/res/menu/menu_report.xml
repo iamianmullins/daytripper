@@ -3,9 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/action_report"
+        android:id="@+id/action_create"
         android:orderInCategory="100"
-        android:title="@string/action_report"
-        android:text="report"
+        android:title="@string/action_create"
         app:showAsAction="never" />
 </menu>
