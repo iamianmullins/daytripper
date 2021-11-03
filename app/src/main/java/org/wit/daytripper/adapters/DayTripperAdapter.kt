@@ -33,6 +33,7 @@ class DayTripperAdapter constructor(private var daytrips: List<DayTripperModel>,
         fun bind(dayTrip: DayTripperModel, listener: DayTripListener) {
             binding.dayTripTitle.text = dayTrip.title
             binding.description.text = dayTrip.description
+            binding.rating.text = dayTrip.rating.toString()
             binding.root.setOnClickListener { listener.onDayTripClick(dayTrip) }
         }
     }
