@@ -28,6 +28,9 @@ class DayTripMemStore: DayTripStore {
             foundDayTrip.title = dayTrip.title
             foundDayTrip.description = dayTrip.description
             foundDayTrip.rating = dayTrip.rating
+            foundDayTrip.lat = dayTrip.lat
+            foundDayTrip.lng = dayTrip.lng
+            foundDayTrip.zoom = dayTrip.zoom
             logAll()
         }
     }

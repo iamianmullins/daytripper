@@ -1,6 +1,7 @@
 package org.wit.daytripper.activities
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -14,6 +15,7 @@ import org.wit.daytripper.databinding.ActivityDaytripperBinding
 import org.wit.daytripper.main.MainApp
 import org.wit.daytripper.models.DayTripperModel
 import org.wit.daytripper.helpers.showImagePicker
+import org.wit.daytripper.models.Location
 import timber.log.Timber.i
 
 
@@ -21,6 +23,8 @@ class DayTripperActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDaytripperBinding
     private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
+    private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
+
     var dayTrip = DayTripperModel()
     var edit = false
     lateinit var app: MainApp
@@ -36,6 +40,17 @@ class DayTripperActivity : AppCompatActivity() {
             showImagePicker(imageIntentLauncher)
         }
 
+        binding.tripLocation.setOnClickListener {
+            val location = Location(52.245696, -7.139102, 15f)
+            if (dayTrip.zoom != 0f) {
+                location.lat =  dayTrip.lat
+                location.lng = dayTrip.lng
+                location.zoom = dayTrip.zoom
+            }
+            val launcherIntent = Intent(this, MapActivity::class.java)
+                .putExtra("location", location)
+            mapIntentLauncher.launch(launcherIntent)
+        }
 
         app = application as MainApp
         i("Day Trip Activity started...")
@@ -50,7 +65,11 @@ class DayTripperActivity : AppCompatActivity() {
             Picasso.get()
                 .load(dayTrip.image)
                 .into(binding.daytripImage)
+            if (dayTrip.image != Uri.EMPTY) {
+                binding.chooseImage.setText(R.string.change_trip_image)
+            }
         }
+
 
         //Add
         binding.btnAdd.setOnClickListener() {
@@ -70,22 +89,28 @@ class DayTripperActivity : AppCompatActivity() {
             setResult(RESULT_OK)
             finish()
         }
+
         binding.chooseImage.setOnClickListener {
             showImagePicker(imageIntentLauncher)
         }
 
         registerImagePickerCallback()
+        registerMapCallback()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_daytrip, menu)
-        return super.onCreateOptionsMenu(menu)
+        return true
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.item_cancel -> { finish() }
+        return when (item.itemId) {
+            R.id.action_report -> { startActivity(Intent(this, DayTripListActivity::class.java))
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
     }
 
     private fun registerImagePickerCallback() {
@@ -100,6 +125,26 @@ class DayTripperActivity : AppCompatActivity() {
                             Picasso.get()
                                 .load(dayTrip.image)
                                 .into(binding.daytripImage)
+                        } // end of if
+                    }
+                    RESULT_CANCELED -> { } else -> { }
+                }
+            }
+    }
+
+    private fun registerMapCallback() {
+        mapIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { result ->
+                when (result.resultCode) {
+                    RESULT_OK -> {
+                        if (result.data != null) {
+                            i("Got Location ${result.data.toString()}")
+                            val location = result.data!!.extras?.getParcelable<Location>("location")!!
+                            i("Location == $location")
+                            dayTrip.lat = location.lat
+                            dayTrip.lng = location.lng
+                            dayTrip.zoom = location.zoom
                         } // end of if
                     }
                     RESULT_CANCELED -> { } else -> { }

@@ -32,12 +32,15 @@ class DayTripListActivity : AppCompatActivity(), DayTripListener  {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return super.onCreateOptionsMenu(menu)
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.menu_report, menu)
+        return true
     }
+
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.item_add -> {
+            R.id.action_create -> {
                 val launcherIntent = Intent(this, DayTripperActivity::class.java)
                 startActivityForResult(launcherIntent,0)
             }
