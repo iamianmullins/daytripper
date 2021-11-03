@@ -27,5 +27,11 @@
             android:layout_below="@id/dayTripTitle"
             tools:text="A Description" />
 
+        <TextView
+            android:id="@+id/rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/description"
+            tools:text="Rating"/>
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
