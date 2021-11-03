@@ -27,6 +27,7 @@ class DayTripMemStore: DayTripStore {
         if (foundDayTrip != null) {
             foundDayTrip.title = dayTrip.title
             foundDayTrip.description = dayTrip.description
+            foundDayTrip.rating = dayTrip.rating
             logAll()
         }
     }
