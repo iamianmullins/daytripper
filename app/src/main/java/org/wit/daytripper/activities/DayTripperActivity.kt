@@ -79,7 +79,8 @@ class DayTripperActivity : AppCompatActivity() {
             if (dayTrip.title.isEmpty()) {
                 Snackbar.make(it,R.string.enter_daytrip_title, Snackbar.LENGTH_LONG)
                     .show()
-            } else {
+            }
+            else {
                 if (edit) {
                     app.dayTrips.update(dayTrip.copy())
                 } else {
@@ -105,12 +106,16 @@ class DayTripperActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_report -> { startActivity(Intent(this, DayTripListActivity::class.java))
-                true
+        when (item.itemId) {
+            R.id.item_delete -> {
+                app.dayTrips.delete(dayTrip)
+                finish()
             }
-            else -> super.onOptionsItemSelected(item)
+            R.id.item_cancel -> {
+                finish()
+            }
         }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun registerImagePickerCallback() {

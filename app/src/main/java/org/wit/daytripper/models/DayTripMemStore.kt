@@ -28,12 +28,21 @@ class DayTripMemStore: DayTripStore {
             foundDayTrip.title = dayTrip.title
             foundDayTrip.description = dayTrip.description
             foundDayTrip.rating = dayTrip.rating
+            foundDayTrip.image = dayTrip.image
             foundDayTrip.lat = dayTrip.lat
             foundDayTrip.lng = dayTrip.lng
             foundDayTrip.zoom = dayTrip.zoom
             logAll()
         }
     }
+
+    override fun delete(dayTrip: DayTripperModel) {
+        var foundDayTrip: DayTripperModel? = daytrips.find { p -> p.id == dayTrip.id }
+        if (foundDayTrip != null) {
+            daytrips.remove(foundDayTrip)
+        }
+    }
+
 
     fun logAll() {
         daytrips.forEach{ i("${it}") }
