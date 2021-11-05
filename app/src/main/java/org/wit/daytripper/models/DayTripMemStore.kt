@@ -36,6 +36,14 @@ class DayTripMemStore: DayTripStore {
         }
     }
 
+    override fun delete(dayTrip: DayTripperModel) {
+        var foundDayTrip: DayTripperModel? = daytrips.find { p -> p.id == dayTrip.id }
+        if (foundDayTrip != null) {
+            daytrips.remove(foundDayTrip)
+        }
+    }
+
+
     fun logAll() {
         daytrips.forEach{ i("${it}") }
     }

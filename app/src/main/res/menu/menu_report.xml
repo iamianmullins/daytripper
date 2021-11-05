@@ -3,8 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/action_create"
-        android:orderInCategory="100"
-        android:title="@string/action_create"
-        app:showAsAction="never" />
+        android:id="@+id/item_map"
+        android:icon="@android:drawable/ic_menu_mapmode"
+        android:title="Maps"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/item_add"
+        android:icon="@android:drawable/ic_menu_add"
+        android:title="Add"
+        app:showAsAction="always" />
 </menu>
