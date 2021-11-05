@@ -30,9 +30,11 @@ class DayTripListActivity : AppCompatActivity(), DayTripListener  {
 
         app = application as MainApp
         val layoutManager = LinearLayoutManager(this)
-        binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = DayTripperAdapter(app.dayTrips.findAll(),this)
 
+        binding.recyclerView.layoutManager = layoutManager
+        //binding.recyclerView.adapter = DayTripperAdapter(app.dayTrips.findAll(),this)
+
+        loadDayTrips()
         registerRefreshCallback()
     }
 
@@ -45,7 +47,7 @@ class DayTripListActivity : AppCompatActivity(), DayTripListener  {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_create -> {
+            R.id.item_add -> {
                 val launcherIntent = Intent(this, DayTripperActivity::class.java)
                 startActivityForResult(launcherIntent,0)
             }
@@ -67,6 +69,15 @@ class DayTripListActivity : AppCompatActivity(), DayTripListener  {
     private fun registerRefreshCallback() {
         refreshIntentLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-            { binding.recyclerView.adapter?.notifyDataSetChanged() }
+            { loadDayTrips() }
+    }
+
+    private fun loadDayTrips() {
+        showDayTrips(app.dayTrips.findAll())
+    }
+
+    fun showDayTrips (daytrips: List<DayTripperModel>) {
+        binding.recyclerView.adapter = DayTripperAdapter(daytrips, this)
+        binding.recyclerView.adapter?.notifyDataSetChanged()
     }
 }
