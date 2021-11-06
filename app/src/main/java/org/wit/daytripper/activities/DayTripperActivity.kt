@@ -15,6 +15,7 @@ import org.wit.daytripper.databinding.ActivityDaytripperBinding
 import org.wit.daytripper.main.MainApp
 import org.wit.daytripper.models.DayTripperModel
 import org.wit.daytripper.helpers.showImagePicker
+import org.wit.daytripper.helpers.getTime
 import org.wit.daytripper.models.Location
 import timber.log.Timber.i
 
@@ -76,6 +77,7 @@ class DayTripperActivity : AppCompatActivity() {
             dayTrip.title = binding.dayTripTitle.text.toString()
             dayTrip.description = binding.description.text.toString()
             dayTrip.rating = binding.ratingBar.rating.toDouble()
+            dayTrip.timest = getTime()
             if (dayTrip.title.isEmpty()) {
                 Snackbar.make(it,R.string.enter_daytrip_title, Snackbar.LENGTH_LONG)
                     .show()
