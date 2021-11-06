@@ -15,9 +15,10 @@
         android:padding="16dp">
 
         <ImageView
-            android:id="@+id/imageIcon"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:id="@id/imageIcon"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:adjustViewBounds="true"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="16dp"
             android:contentDescription="@string/change_trip_image"
@@ -26,45 +27,48 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+
         <TextView
             android:id="@+id/dayTripTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
             android:layout_marginTop="4dp"
             android:textAlignment="viewStart"
             android:textSize="30sp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.048"
-            app:layout_constraintStart_toEndOf="@+id/imageIcon"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="A Title" />
+            app:layout_constraintTop_toBottomOf="@id/imageIcon"
+            tools:text="A Title"
+            tools:ignore="MissingConstraints" />
+
         <TextView
             android:id="@+id/description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:textAlignment="viewStart"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.052"
-            app:layout_constraintStart_toEndOf="@+id/imageIcon"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/dayTripTitle"
             tools:text="A Description" />
+
         <TextView
             android:id="@+id/rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:textAlignment="viewStart"
-            app:layout_constraintEnd_toEndOf="parent"
+
             app:layout_constraintHorizontal_bias="0.052"
-            app:layout_constraintStart_toEndOf="@+id/imageIcon"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/description"
             tools:text="Rating" />
 
         <LinearLayout
+            android:id="@+id/latlong"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@+id/imageIcon"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/rating">
 
             <TextView
@@ -72,7 +76,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:textAlignment="viewStart"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -80,12 +83,13 @@
                 app:layout_constraintStart_toEndOf="@+id/imageIcon"
                 app:layout_constraintTop_toBottomOf="@id/description"
                 tools:text="Longitude" />
+
             <TextView
                 android:id="@+id/lat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginRight="20dp"
                 android:textAlignment="viewStart"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -94,6 +98,16 @@
                 tools:text="Latitude" />
 
         </LinearLayout>
+        <TextView
+            android:id="@+id/timest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textAlignment="viewStart"
+            app:layout_constraintHorizontal_bias="0.052"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/latlong"
+            tools:text="TimeStamp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
