@@ -39,6 +39,7 @@ class DayTripperAdapter constructor(private var daytrips: List<DayTripperModel>,
             binding.lat.text = "Lat: " + String.format("%.5f", dayTrip.lat)
             binding.lng.text = "Long: " + String.format("%.5f", dayTrip.lng)
             Picasso.get().load(dayTrip.image).resize(200,200).into(binding.imageIcon)
+            binding.timest.text = "TimeStamp: " + dayTrip.timest
             binding.root.setOnClickListener { listener.onDayTripClick(dayTrip) }
         }
     }
