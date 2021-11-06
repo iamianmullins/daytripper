@@ -14,7 +14,7 @@ data class DayTripperModel(
     var rating: Double = 0.00,
     var lat: Double = 0.0,
     var lng: Double = 0.0,
-    var timest: LocalDateTime = LocalDateTime.now(),
+    var timest: String = "",
     var zoom: Float = 0f) : Parcelable
 
 @Parcelize
