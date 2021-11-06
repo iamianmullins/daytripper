@@ -3,6 +3,7 @@ package org.wit.daytripper.models
 import android.net.Uri
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+import java.time.LocalDateTime
 
 @Parcelize
 data class DayTripperModel(
@@ -11,8 +12,9 @@ data class DayTripperModel(
     var description: String = "",
     var image: Uri = Uri.EMPTY,
     var rating: Double = 0.00,
-    var lat : Double = 0.0,
+    var lat: Double = 0.0,
     var lng: Double = 0.0,
+    var timest: LocalDateTime = LocalDateTime.now(),
     var zoom: Float = 0f) : Parcelable
 
 @Parcelize
