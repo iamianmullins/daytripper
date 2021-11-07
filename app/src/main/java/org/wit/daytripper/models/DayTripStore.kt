@@ -5,5 +5,6 @@ interface DayTripStore {
     fun create(daytrip: DayTripperModel)
     fun update(daytrip: DayTripperModel)
     fun delete(daytrip: DayTripperModel)
+    fun deleteAll()
 
 }

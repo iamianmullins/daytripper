@@ -40,7 +40,6 @@ class DayTripJSONStore(private val context: Context) : DayTripStore {
         serialize()
     }
 
-
     override fun update(dayTrip: DayTripperModel) {
         var foundDayTrip: DayTripperModel? = daytrips.find { p -> p.id == dayTrip.id }
         if (foundDayTrip != null) {
@@ -63,6 +62,10 @@ class DayTripJSONStore(private val context: Context) : DayTripStore {
         }
     }
 
+    override fun deleteAll() {
+        daytrips.clear()
+        serialize()
+    }
     private fun serialize() {
         val jsonString = gsonBuilder.toJson(daytrips, listType)
         write(context, JSON_FILE, jsonString)
