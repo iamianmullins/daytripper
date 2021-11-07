@@ -32,6 +32,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
 
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
+        map.uiSettings.isZoomControlsEnabled = true
         val loc = LatLng(location.lat, location.lng)
         val options = MarkerOptions()
             .title("Placemark")
