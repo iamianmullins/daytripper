@@ -19,7 +19,6 @@ import org.wit.daytripper.helpers.getTime
 import org.wit.daytripper.models.Location
 import timber.log.Timber.i
 
-
 class DayTripperActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDaytripperBinding
@@ -79,7 +78,7 @@ class DayTripperActivity : AppCompatActivity() {
             dayTrip.rating = binding.ratingBar.rating.toDouble()
             dayTrip.timest = getTime()
             if (dayTrip.title.isEmpty()) {
-                Snackbar.make(it,R.string.enter_daytrip_title, Snackbar.LENGTH_LONG)
+                Snackbar.make(it, R.string.enter_daytrip_title, Snackbar.LENGTH_LONG)
                     .show()
             }
             else {
@@ -93,17 +92,13 @@ class DayTripperActivity : AppCompatActivity() {
             finish()
         }
 
-        binding.chooseImage.setOnClickListener {
-            showImagePicker(imageIntentLauncher)
-        }
-
         registerImagePickerCallback()
         registerMapCallback()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_daytrip, menu)
+        menuInflater.inflate(org.wit.daytripper.R.menu.menu_daytrip, menu)
         return true
     }
 

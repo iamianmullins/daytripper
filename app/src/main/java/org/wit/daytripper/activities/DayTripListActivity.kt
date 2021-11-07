@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -34,15 +35,6 @@ class DayTripListActivity : AppCompatActivity(), DayTripListener  {
         binding.recyclerView.layoutManager = layoutManager
         //binding.recyclerView.adapter = DayTripperAdapter(app.dayTrips.findAll(),this)
 
-        var dayTrip1 = DayTripperModel()
-        var dayTrip2 = DayTripperModel()
-        var dayTrip3 = DayTripperModel()
-        var dayTrip4 = DayTripperModel()
-        var dayTrip5 = DayTripperModel()
-
-
-
-
         loadDayTrips()
         registerRefreshCallback()
     }
@@ -61,8 +53,16 @@ class DayTripListActivity : AppCompatActivity(), DayTripListener  {
                 startActivityForResult(launcherIntent,0)
             }
             R.id.item_deleteall -> {
+                var count = dayTripCount()
                 app.dayTrips.deleteAll()
+                var msg =""
+                val tripTrips = if (count == 1) {
+                    msg = "You have deleted  $count DayTrip"
+                } else {
+                    msg = "You have deleted  $count DayTrips"
+                }
                 val launcherIntent = Intent(this, DayTripListActivity::class.java)
+                Toast.makeText(this@DayTripListActivity, msg, Toast.LENGTH_SHORT).show()
                 startActivityForResult(launcherIntent,0)
             }
         }
@@ -88,6 +88,11 @@ class DayTripListActivity : AppCompatActivity(), DayTripListener  {
 
     private fun loadDayTrips() {
         showDayTrips(app.dayTrips.findAll())
+    }
+
+    private fun dayTripCount(): Int {
+        val dayTripSize = app.dayTrips.findAll()
+        return dayTripSize.size
     }
 
     fun showDayTrips (daytrips: List<DayTripperModel>) {
