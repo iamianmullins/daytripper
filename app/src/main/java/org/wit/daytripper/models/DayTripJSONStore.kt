@@ -50,7 +50,6 @@ class DayTripJSONStore(private val context: Context) : DayTripStore {
             foundDayTrip.lat = dayTrip.lat
             foundDayTrip.lng = dayTrip.lng
             foundDayTrip.zoom = dayTrip.zoom
-            foundDayTrip.timest = getTime()
         }
         serialize()
     }

@@ -1,6 +1,5 @@
 package org.wit.daytripper.models
 
-import org.wit.daytripper.helpers.getTime
 import timber.log.Timber.i
 
 var lastId = 0L
@@ -33,7 +32,6 @@ class DayTripMemStore: DayTripStore {
             foundDayTrip.lat = dayTrip.lat
             foundDayTrip.lng = dayTrip.lng
             foundDayTrip.zoom = dayTrip.zoom
-            foundDayTrip.timest = getTime()
             logAll()
         }
     }
