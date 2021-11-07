@@ -44,6 +44,11 @@ class DayTripMemStore: DayTripStore {
     }
 
 
+    override fun deleteAll(){
+        daytrips.clear()
+    }
+
+
     fun logAll() {
         daytrips.forEach{ i("${it}") }
     }

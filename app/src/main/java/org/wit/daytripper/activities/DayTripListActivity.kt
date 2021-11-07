@@ -34,6 +34,15 @@ class DayTripListActivity : AppCompatActivity(), DayTripListener  {
         binding.recyclerView.layoutManager = layoutManager
         //binding.recyclerView.adapter = DayTripperAdapter(app.dayTrips.findAll(),this)
 
+        var dayTrip1 = DayTripperModel()
+        var dayTrip2 = DayTripperModel()
+        var dayTrip3 = DayTripperModel()
+        var dayTrip4 = DayTripperModel()
+        var dayTrip5 = DayTripperModel()
+
+
+
+
         loadDayTrips()
         registerRefreshCallback()
     }
@@ -49,6 +58,11 @@ class DayTripListActivity : AppCompatActivity(), DayTripListener  {
         when (item.itemId) {
             R.id.item_add -> {
                 val launcherIntent = Intent(this, DayTripperActivity::class.java)
+                startActivityForResult(launcherIntent,0)
+            }
+            R.id.item_deleteall -> {
+                app.dayTrips.deleteAll()
+                val launcherIntent = Intent(this, DayTripListActivity::class.java)
                 startActivityForResult(launcherIntent,0)
             }
         }
