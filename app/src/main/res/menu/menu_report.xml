@@ -2,14 +2,23 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item
-        android:id="@+id/item_map"
-        android:icon="@android:drawable/ic_menu_mapmode"
-        android:title="Maps"
-        app:showAsAction="always"/>
+
     <item
         android:id="@+id/item_add"
+        android:title="@string/menu_addDayTrip"
         android:icon="@android:drawable/ic_menu_add"
-        android:title="Add"
-        app:showAsAction="always" />
+        android:color="@color/colorPrimaryDark"
+        android:background="@color/colorAccent"
+        android:actionMenuTextColor="@color/colorPrimaryDark"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/item_deleteSubMenu"
+        android:title="@string/menu_deleteTrips">
+        <menu>
+            <item android:id="@+id/item_deleteall"
+                android:title="@string/menu_deleteAll" />
+        </menu>
+    </item>
+
 </menu>
