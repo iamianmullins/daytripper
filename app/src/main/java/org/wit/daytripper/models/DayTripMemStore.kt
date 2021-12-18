@@ -9,7 +9,7 @@ internal fun getId(): Long {
     return lastId++
 }
 
-class DayTripMemStore: DayTripStore {
+object DayTripManager: DayTripStore {
 
     val daytrips = ArrayList<DayTripperModel>()
 
