@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FFFFFF</color>
-    <color name="colorPrimaryDark">#000000</color>
-    <color name="colorAccent">#1B991B</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000</color>
+    <color name="color_primary">#326E28</color>
+    <color name="color_secondary">#1B991B</color>
+    <color name="transparent">#00000000</color>
+    <!-- ratingbar -->
+    <color name="black_overlay">#66000000</color>
 </resources>
