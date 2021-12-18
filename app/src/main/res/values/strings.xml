@@ -24,11 +24,13 @@
     <string name="action_create">Add Trip</string>
     <string name="action_report">Trip Report</string>
 
-    <!-- Toast prompt -->
+    <!-- Toast/notice -->
     <string name="enter_daytrip_title"> Please enter a Day Trip Name </string>
     <string name="enter_daytrip_description"> Please enter a Day Trip Description </string>
     <string name="enter_daytrip_rating"> Please enter a Day Trip Rating </string>
     <string name="success_message"> Day Trip successfully added </string>
+    <string name="dayTripsNotFound">No Day Trips found...\nStart exploring!</string>
+    <string name="dayTripError">Error : Couldn\'t Create a Day Trip...</string>
 
     <!-- Navigation -->
     <string name="action_share">Share</string>
