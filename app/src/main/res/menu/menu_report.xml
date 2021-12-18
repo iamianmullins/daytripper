@@ -2,23 +2,21 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-
     <item
-        android:id="@+id/item_add"
+        android:id="@+id/dayTripFragment"
         android:title="@string/menu_addDayTrip"
         android:icon="@android:drawable/ic_menu_add"
-        android:color="@color/colorPrimaryDark"
-        android:background="@color/colorAccent"
-        android:actionMenuTextColor="@color/colorPrimaryDark"
         app:showAsAction="never"
+        android:titleCondensed="titleCondensed_createtrip"
         />
     <item
         android:id="@+id/item_deleteSubMenu"
-        android:title="@string/menu_deleteTrips">
+        android:title="@string/menu_deleteTrips"
+        app:showAsAction="never">
         <menu>
             <item android:id="@+id/item_deleteall"
-                android:title="@string/menu_deleteAll" />
+                android:title="@string/menu_deleteAll"
+                android:titleCondensed="titleCondensed_deleteall"/>
         </menu>
     </item>
-
 </menu>

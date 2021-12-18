@@ -1,22 +1,47 @@
 <resources>
+    <!-- Title -->
     <string name="app_name">DayTripper</string>
+    <string name="reportTitle">DayTripper Report</string>
+    <string name="newDayTripTitle">Create DayTrip</string>
+    <string name="title_activity_map">Map</string>
+
+    <!-- Forms -->
     <string name="button_addDayTrip">Add Day Trip</string>
     <string name="hint_DayTripTitle">Trip Name</string>
     <string name="hint_DayTripDescription">Trip Description </string>
+    <string name="save_daytrip"> Save Day Trip </string>
+    <string name="button_addImage"> Add Image </string>
+    <string name="select_daytrip_image">Select DayTrip image</string>
+    <string name="change_trip_image">Change image</string>
+    <string name="button_location">Set Location</string>
+
+    <!-- Menu -->
     <string name="menu_addDayTrip">Add Trip</string>
     <string name="menu_cancelDayTrip">Cancel</string>
     <string name="menu_deleteDayTrip">Delete</string>
     <string name="menu_deleteTrips">Delete Menu</string>
     <string name="menu_deleteAll">Delete All Trips</string>
-    <string name="enter_daytrip_title"> Please enter a Day Trip Name </string>
-    <string name="save_daytrip"> Save Day Trip </string>
-    <string name="button_addImage"> Add Image </string>
-    <string name="select_daytrip_image">Select DayTrip image</string>
-    <string name="reportTitle">DayTripper Report</string>
     <string name="action_create">Add Trip</string>
     <string name="action_report">Trip Report</string>
-    <string name="button_location">Set Location</string>
-    <string name="title_activity_map">Map</string>
-    <string name="change_trip_image">Change image</string>
+
+    <!-- Toast prompt -->
+    <string name="enter_daytrip_title"> Please enter a Day Trip Name </string>
+    <string name="enter_daytrip_description"> Please enter a Day Trip Description </string>
+    <string name="enter_daytrip_rating"> Please enter a Day Trip Rating </string>
+    <string name="success_message"> Day Trip successfully added </string>
+
+    <!-- Navigation -->
+    <string name="action_share">Share</string>
+    <string name="action_send">Send</string>
+    <string name="group_communicate">Communicate</string>
+
+    <string name="nav_header_title">DayTripper</string>
+    <string name="nav_header_subtitle">visitor@daytripper.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+
+    <!--MenuTags-->
+    <string name="titleCondensed_report">report</string>
+    <string name="titleCondensed_createtrip">create_trip</string>
+    <string name="titleCondensed_deleteall">delete_all</string>
 
 </resources>
