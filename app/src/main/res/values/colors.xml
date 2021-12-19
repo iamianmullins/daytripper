@@ -7,4 +7,8 @@
     <color name="transparent">#00000000</color>
     <!-- ratingbar -->
     <color name="black_overlay">#66000000</color>
+
+    <!-- Rating Bar -->
+    <color name="rb_color">#7765A14B</color>
+    <color name="rb_colorActive">#AFA015</color>
 </resources>

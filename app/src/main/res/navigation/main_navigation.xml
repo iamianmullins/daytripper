@@ -26,5 +26,21 @@
             app:destination="@id/dayTripFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_reportFragment_to_dayTripDetailFragment"
+            app:destination="@id/dayTripDetailFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/dayTripDetailFragment"
+        android:name="org.wit.daytripper.ui.detail.DayTripDetailFragment"
+        android:label="day_trip_detail_fragment"
+        tools:layout="@layout/day_trip_detail_fragment" >
+        <action
+            android:id="@+id/action_dayTripDetailFragment_to_reportFragment"
+            app:destination="@id/reportFragment" />
+        <argument
+            android:name="dayTripId"
+            app:argType="long" />
+    </fragment>
+
 </navigation>

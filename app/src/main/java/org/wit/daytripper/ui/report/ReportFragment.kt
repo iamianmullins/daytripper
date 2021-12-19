@@ -62,9 +62,9 @@ class ReportFragment : Fragment(), DayTripListener {
             requireView().findNavController()) || super.onOptionsItemSelected(item)
     }
 
-    private fun render(donationsList: List<DayTripperModel>) {
-        fragBinding.recyclerView.adapter = DayTripperAdapter(donationsList,this)
-        if (donationsList.isEmpty()) {
+    private fun render(dayTrips: List<DayTripperModel>) {
+        fragBinding.recyclerView.adapter = DayTripperAdapter(dayTrips ,this)
+        if (dayTrips.isEmpty()) {
             fragBinding.recyclerView.visibility = View.GONE
             fragBinding.dayTripsNotFound.visibility = View.VISIBLE
         } else {
@@ -74,7 +74,7 @@ class ReportFragment : Fragment(), DayTripListener {
     }
 
     override fun onDayTripClick(dayTrip: DayTripperModel) {
-        val action = ReportFragmentDirections.actionReportFragmentToDayTripFragment()
+        val action = ReportFragmentDirections.actionReportFragmentToDayTripDetailFragment(dayTrip.id)
         findNavController().navigate(action)
     }
 
