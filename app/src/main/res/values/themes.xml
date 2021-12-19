@@ -12,11 +12,17 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
         <item name="android:textColorPrimary">@color/black</item>
+        <item name="android:textColorSecondary">@color/white</item>
     </style>
 
     <style name="Theme.DayTripper.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/rb_color</item>
+        <item name="colorControlActivated">@color/rb_colorActive</item>
     </style>
 
     <style name="Theme.DayTripper.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

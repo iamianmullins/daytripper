@@ -17,6 +17,11 @@ object DayTripManager: DayTripStore {
         return daytrips
     }
 
+    override fun findById(id:Long) : DayTripperModel? {
+        var foundDayTrip: DayTripperModel? = daytrips.find { p -> p.id == id }
+        return foundDayTrip
+    }
+
     override fun create(dayTrip: DayTripperModel) {
         dayTrip.id = getId()
         daytrips.add(dayTrip)

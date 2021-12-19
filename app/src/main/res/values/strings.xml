@@ -46,4 +46,14 @@
     <string name="titleCondensed_createtrip">create_trip</string>
     <string name="titleCondensed_deleteall">delete_all</string>
 
+    <!--Day Trip Detail-->
+    <string name="dayTripDetails">DayTrip Details</string>
+    <string name="tripTitle">Title :</string>
+    <string name="tripDescription">Description :</string>
+    <string name="tripRating">Rating: </string>
+    <string name="tripLat">Lat: </string>
+    <string name="tripLng">Lng :</string>
+    <string name="tripCreated">Created/Modified :</string>
+    <string name="tripLikes">Likes :</string>
+
 </resources>

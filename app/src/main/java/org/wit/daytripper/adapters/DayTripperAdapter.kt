@@ -34,18 +34,9 @@ class DayTripperAdapter constructor(private var dayTrips: List<DayTripperModel>,
     inner class MainHolder(val binding : CardDaytripBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(dayTrip: DayTripperModel, listener: DayTripListener) {
-            //Timber.plant(Timber.DebugTree())
-            //Timber.i("Day Trips" + dayTrip)
 
             binding.dayTrip = dayTrip
-
-            //binding.imageIcon.setImageResource(R.drawable.lotr)
-            //binding.description.text = "DayTrip Title: " +  dayTrip.title
-            //binding.dayTripTitle.text = "Description: " +  dayTrip.description
-            //binding.rating.text = "Rating: " +  dayTrip.rating.toString()
-            //binding.lat.text = "Longitude: " +  dayTrip.lat.toString()
-            //binding.lng.text = "Longitude: " + dayTrip.lng.toString()
-            //binding.timest.text = "Created: " +  dayTrip.timest.toString()
+            binding.imageIcon.setImageResource(R.drawable.explorericon)
 
             binding.root.setOnClickListener { listener.onDayTripClick(dayTrip) }
             binding.executePendingBindings()

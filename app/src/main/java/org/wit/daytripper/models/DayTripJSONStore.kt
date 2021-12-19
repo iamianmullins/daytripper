@@ -29,6 +29,11 @@ class DayTripJSONStore(private val context: Context) : DayTripStore {
         }
     }
 
+    override fun findById(id:Long) : DayTripperModel? {
+        var foundDayTrip: DayTripperModel? = DayTripManager.daytrips.find { p -> p.id == id }
+        return foundDayTrip
+    }
+
     override fun findAll(): MutableList<DayTripperModel> {
         logAll()
         return daytrips
