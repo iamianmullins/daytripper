@@ -12,7 +12,7 @@ class DayTripDetailViewModel : ViewModel() {
     val observableDayTrip: LiveData<DayTripperModel>
         get() = dayTrip
 
-    fun getDayTrip(id: Long) {
+    fun getDayTrip(id: String) {
         dayTrip.value = DayTripManager.findById(id)
     }
 }

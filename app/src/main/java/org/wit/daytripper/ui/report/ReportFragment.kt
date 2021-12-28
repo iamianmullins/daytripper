@@ -1,5 +1,6 @@
 package org.wit.daytripper.ui.report
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -9,7 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.wit.daytripper.R
 import org.wit.daytripper.adapters.DayTripListener
@@ -17,6 +20,10 @@ import org.wit.daytripper.adapters.DayTripperAdapter
 import org.wit.daytripper.databinding.FragmentReportBinding
 import org.wit.daytripper.main.MainApp
 import org.wit.daytripper.models.DayTripperModel
+import org.wit.daytripper.utils.SwipeToDeleteCallback
+import org.wit.daytripper.utils.createLoader
+import org.wit.daytripper.utils.hideLoader
+import org.wit.daytripper.utils.showLoader
 
 class ReportFragment : Fragment(), DayTripListener {
 
@@ -24,6 +31,7 @@ class ReportFragment : Fragment(), DayTripListener {
     private var _fragBinding: FragmentReportBinding? = null
     private val fragBinding get() = _fragBinding!!
     private lateinit var reportViewModel: ReportViewModel
+    lateinit var loader : AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,11 +45,18 @@ class ReportFragment : Fragment(), DayTripListener {
         _fragBinding = FragmentReportBinding.inflate(inflater, container, false)
         val root = fragBinding.root
 
+        loader = createLoader(requireActivity())
+
         fragBinding.recyclerView.layoutManager = LinearLayoutManager(activity)
         reportViewModel = ViewModelProvider(this).get(ReportViewModel::class.java)
+        showLoader(loader,"Downloading DayTrips")
         reportViewModel.observableDayTripsList.observe(viewLifecycleOwner, Observer {
-                donations ->
-            donations?.let { render(donations) }
+                dayTrips ->
+            dayTrips?.let {
+                render(dayTrips as ArrayList<DayTripperModel>)
+                hideLoader(loader)
+                checkSwipeRefresh()
+            }
         })
 
         val fab: FloatingActionButton = fragBinding.fab
@@ -49,6 +64,24 @@ class ReportFragment : Fragment(), DayTripListener {
             val action = ReportFragmentDirections.actionReportFragmentToDayTripFragment()
             findNavController().navigate(action)
         }
+
+        setSwipeRefresh()
+
+        reportViewModel.load()
+
+        val swipeDeleteHandler = object : SwipeToDeleteCallback(requireContext()) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val adapter = fragBinding.recyclerView.adapter as DayTripperAdapter
+                adapter.removeAt(viewHolder.adapterPosition)
+                reportViewModel.delete(viewHolder.itemView.tag as String)
+                Toast.makeText(context,getString(R.string.delete_message), Toast.LENGTH_LONG).show()
+
+            }
+        }
+        val itemTouchDeleteHelper = ItemTouchHelper(swipeDeleteHandler)
+        itemTouchDeleteHelper.attachToRecyclerView(fragBinding.recyclerView)
+
+
         return root
     }
 
@@ -62,7 +95,7 @@ class ReportFragment : Fragment(), DayTripListener {
             requireView().findNavController()) || super.onOptionsItemSelected(item)
     }
 
-    private fun render(dayTrips: List<DayTripperModel>) {
+    private fun render(dayTrips: ArrayList<DayTripperModel>) {
         fragBinding.recyclerView.adapter = DayTripperAdapter(dayTrips ,this)
         if (dayTrips.isEmpty()) {
             fragBinding.recyclerView.visibility = View.GONE
@@ -74,7 +107,7 @@ class ReportFragment : Fragment(), DayTripListener {
     }
 
     override fun onDayTripClick(dayTrip: DayTripperModel) {
-        val action = ReportFragmentDirections.actionReportFragmentToDayTripDetailFragment(dayTrip.id)
+        val action = ReportFragmentDirections.actionReportFragmentToDayTripDetailFragment(dayTrip._id)
         findNavController().navigate(action)
     }
 
@@ -90,5 +123,19 @@ class ReportFragment : Fragment(), DayTripListener {
     override fun onDestroyView() {
         super.onDestroyView()
         _fragBinding = null
+    }
+
+    fun setSwipeRefresh() {
+        fragBinding.swiperefresh.setOnRefreshListener {
+            fragBinding.swiperefresh.isRefreshing = true
+            showLoader(loader,"Downloading DayTrips")
+            reportViewModel.load()
+
+        }
+    }
+
+    fun checkSwipeRefresh() {
+        if (fragBinding.swiperefresh.isRefreshing)
+            fragBinding.swiperefresh.isRefreshing = false
     }
 }

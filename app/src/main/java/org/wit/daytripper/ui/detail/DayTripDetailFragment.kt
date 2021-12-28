@@ -41,7 +41,7 @@ class DayTripDetailFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        detailViewModel.getDayTrip(args.dayTripId)
+        detailViewModel.getDayTrip(args.dayTripId.toString())
     }
 
     override fun onDestroyView() {

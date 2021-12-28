@@ -13,9 +13,9 @@ class DayTripViewModel : ViewModel() {
     val observableStatus: LiveData<Boolean>
         get() = status
 
-    fun addDayTrip(donation: DayTripperModel) {
+    fun addDayTrip(dayTrip: DayTripperModel) {
         status.value = try {
-            DayTripManager.create(donation)
+            DayTripManager.create(dayTrip)
             true
         } catch (e: IllegalArgumentException) {
             false

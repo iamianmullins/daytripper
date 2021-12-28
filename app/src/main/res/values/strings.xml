@@ -29,8 +29,11 @@
     <string name="enter_daytrip_description"> Please enter a Day Trip Description </string>
     <string name="enter_daytrip_rating"> Please enter a Day Trip Rating </string>
     <string name="success_message"> Day Trip successfully added </string>
+    <string name="delete_message"> Day Trip successfully deleted </string>
     <string name="dayTripsNotFound">No Day Trips found...\nStart exploring!</string>
     <string name="dayTripError">Error : Couldn\'t Create a Day Trip...</string>
+
+    <string name="messageLoading">Please Wait while the DayTrips are Loading...</string>
 
     <!-- Navigation -->
     <string name="action_share">Share</string>
