@@ -13,7 +13,7 @@ interface DayTripListener {
     fun onDayTripClick(daytrip: DayTripperModel)
 }
 
-class DayTripperAdapter constructor(private var dayTrips: List<DayTripperModel>,
+class DayTripperAdapter constructor(private var dayTrips: ArrayList<DayTripperModel>,
                                   private val listener: DayTripListener)
     : RecyclerView.Adapter<DayTripperAdapter.MainHolder>() {
 
@@ -29,12 +29,17 @@ class DayTripperAdapter constructor(private var dayTrips: List<DayTripperModel>,
         holder.bind(dayTrip,listener)
     }
 
+    fun removeAt(position: Int) {
+        dayTrips.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
     override fun getItemCount(): Int = dayTrips.size
 
     inner class MainHolder(val binding : CardDaytripBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(dayTrip: DayTripperModel, listener: DayTripListener) {
-
+            binding.root.tag = dayTrip._id
             binding.dayTrip = dayTrip
             binding.imageIcon.setImageResource(R.drawable.explorericon)
 

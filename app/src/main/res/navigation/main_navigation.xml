@@ -40,7 +40,7 @@
             app:destination="@id/reportFragment" />
         <argument
             android:name="dayTripId"
-            app:argType="long" />
+            app:argType="string" />
     </fragment>
 
 </navigation>

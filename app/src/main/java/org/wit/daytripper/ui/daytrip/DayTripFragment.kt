@@ -120,6 +120,7 @@ class DayTripFragment : Fragment() {
         })
     }
 
+
     override fun onDestroyView() {
         super.onDestroyView()
         _fragBinding = null

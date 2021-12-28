@@ -1,11 +1,12 @@
 package org.wit.daytripper.models
 
+import androidx.lifecycle.MutableLiveData
+
 interface DayTripStore {
-    fun findAll(): List<DayTripperModel>
-    fun findById(id: Long) : DayTripperModel?
+    fun findAll(dayTripList: MutableLiveData<List<DayTripperModel>>)
+    fun findById(id: String) : DayTripperModel?
     fun create(daytrip: DayTripperModel)
-    fun update(daytrip: DayTripperModel)
-    fun delete(daytrip: DayTripperModel)
+    fun delete(id: String)
     fun deleteAll()
 
 }
