@@ -31,6 +31,11 @@
             app:destination="@id/dayTripDetailFragment" />
     </fragment>
     <fragment
+        android:id="@+id/aboutFragment"
+        android:name="org.wit.daytripper.ui.about.AboutFragment"
+        android:label="@string/action_about"
+        tools:layout="@layout/fragment_about" />
+    <fragment
         android:id="@+id/dayTripDetailFragment"
         android:name="org.wit.daytripper.ui.detail.DayTripDetailFragment"
         android:label="day_trip_detail_fragment"

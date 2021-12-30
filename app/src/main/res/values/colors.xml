@@ -11,4 +11,11 @@
     <!-- Rating Bar -->
     <color name="rb_color">#7765A14B</color>
     <color name="rb_colorActive">#AFA015</color>
+
+
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="grey_100">#2196F3</color>
+    <color name="grey_300">#E0E0E0</color>
+    <color name="grey_500">#9E9E9E</color>
+    <color name="grey_dark">#424141</color>
 </resources>
