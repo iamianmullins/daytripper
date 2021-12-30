@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 
@@ -18,6 +19,7 @@ import org.wit.daytripper.databinding.FragmentDaytripBinding
 import org.wit.daytripper.helpers.getTime
 import org.wit.daytripper.main.MainApp
 import org.wit.daytripper.models.DayTripperModel
+import org.wit.daytripper.ui.auth.LoggedInViewModel
 import org.wit.daytripper.ui.report.ReportViewModel
 
 class DayTripFragment : Fragment() {
@@ -25,6 +27,8 @@ class DayTripFragment : Fragment() {
     private var _fragBinding: FragmentDaytripBinding? = null
     private val fragBinding get() = _fragBinding!!
     private lateinit var dayTripViewModel: DayTripViewModel
+    private val reportViewModel: ReportViewModel by activityViewModels()
+    private val loggedInViewModel : LoggedInViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,6 +79,7 @@ class DayTripFragment : Fragment() {
             val title = layout.dayTripTitle.text.toString()
             val description = layout.description.text.toString()
             val rating = layout.ratingBar.rating.toDouble()
+            val likes = 0
             val timest = getTime()
             val lat = 404.40400
             val lng = 404.40400
@@ -92,10 +97,11 @@ class DayTripFragment : Fragment() {
                 title = title,
                 description = description,
                 rating = rating,
+                likes = likes,
                 timest = timest,
                 lat = lat,
-                lng = lng
-            ))
+                lng = lng,
+                email = loggedInViewModel.liveFirebaseUser.value?.email!!))
             Snackbar.make(it, R.string.success_message, Snackbar.LENGTH_LONG)
                 .show()
 

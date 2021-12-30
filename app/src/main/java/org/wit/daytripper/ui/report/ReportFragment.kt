@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -20,17 +21,16 @@ import org.wit.daytripper.adapters.DayTripperAdapter
 import org.wit.daytripper.databinding.FragmentReportBinding
 import org.wit.daytripper.main.MainApp
 import org.wit.daytripper.models.DayTripperModel
-import org.wit.daytripper.utils.SwipeToDeleteCallback
-import org.wit.daytripper.utils.createLoader
-import org.wit.daytripper.utils.hideLoader
-import org.wit.daytripper.utils.showLoader
+import org.wit.daytripper.ui.auth.LoggedInViewModel
+import org.wit.daytripper.utils.*
 
 class ReportFragment : Fragment(), DayTripListener {
 
     lateinit var app: MainApp
     private var _fragBinding: FragmentReportBinding? = null
     private val fragBinding get() = _fragBinding!!
-    private lateinit var reportViewModel: ReportViewModel
+    private val reportViewModel: ReportViewModel by activityViewModels()
+    private val loggedInViewModel : LoggedInViewModel by activityViewModels()
     lateinit var loader : AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +48,6 @@ class ReportFragment : Fragment(), DayTripListener {
         loader = createLoader(requireActivity())
 
         fragBinding.recyclerView.layoutManager = LinearLayoutManager(activity)
-        reportViewModel = ViewModelProvider(this).get(ReportViewModel::class.java)
         showLoader(loader,"Downloading DayTrips")
         reportViewModel.observableDayTripsList.observe(viewLifecycleOwner, Observer {
                 dayTrips ->
@@ -71,13 +70,22 @@ class ReportFragment : Fragment(), DayTripListener {
 
         val swipeDeleteHandler = object : SwipeToDeleteCallback(requireContext()) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                showLoader(loader,"Deleting Day Trip")
                 val adapter = fragBinding.recyclerView.adapter as DayTripperAdapter
                 adapter.removeAt(viewHolder.adapterPosition)
-                reportViewModel.delete(viewHolder.itemView.tag as String)
-                Toast.makeText(context,getString(R.string.delete_message), Toast.LENGTH_LONG).show()
-
+                reportViewModel.delete(reportViewModel.liveFirebaseUser.value?.email!!,
+                    (viewHolder.itemView.tag as DayTripperModel)._id)
+                hideLoader(loader)
             }
         }
+
+        val swipeEditHandler = object : SwipeToEditCallback(requireContext()) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                onDayTripClick(viewHolder.itemView.tag as DayTripperModel)
+            }
+        }
+        val itemTouchEditHelper = ItemTouchHelper(swipeEditHandler)
+        itemTouchEditHelper.attachToRecyclerView(fragBinding.recyclerView)
         val itemTouchDeleteHelper = ItemTouchHelper(swipeDeleteHandler)
         itemTouchDeleteHelper.attachToRecyclerView(fragBinding.recyclerView)
 
@@ -114,10 +122,14 @@ class ReportFragment : Fragment(), DayTripListener {
 
     override fun onResume() {
         super.onResume()
-        val reportViewModel = ViewModelProvider(this).get(ReportViewModel::class.java)
-        reportViewModel.observableDayTripsList.observe(viewLifecycleOwner, Observer {
-
+        showLoader(loader,"Downloading Day Trips")
+        loggedInViewModel.liveFirebaseUser.observe(viewLifecycleOwner, Observer { firebaseUser ->
+            if (firebaseUser != null) {
+                reportViewModel.liveFirebaseUser.value = firebaseUser
+                reportViewModel.load()
+            }
         })
+        //hideLoader(loader)
     }
 
     override fun onDestroyView() {

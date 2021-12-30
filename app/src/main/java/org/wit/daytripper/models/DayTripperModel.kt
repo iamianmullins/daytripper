@@ -16,12 +16,8 @@ data class DayTripperModel(
     var image: Uri = Uri.EMPTY,
     @SerializedName("amount")
     var rating: Double = 0.00,
+    var likes: Int = 0,
     var lat: Double = 0.0,
     var lng: Double = 0.0,
     var timest: String = "",
-    var zoom: Float = 0f) : Parcelable
-
-@Parcelize
-data class Location(var lat: Double = 0.0,
-                    var lng: Double = 0.0,
-                    var zoom: Float = 0f) : Parcelable
+    var email: String = "joe@bloggs.com") : Parcelable

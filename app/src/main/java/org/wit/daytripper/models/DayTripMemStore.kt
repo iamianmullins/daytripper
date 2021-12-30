@@ -18,33 +18,60 @@ internal fun getId(): Long {
 
 object DayTripManager: DayTripStore {
 
-    val daytrips = ArrayList<DayTripperModel>()
-
     override fun findAll(dayTripList: MutableLiveData<List<DayTripperModel>>) {
 
-        val call = DayTripClient.getApi().getall()
+        val call = DayTripClient.getApi().findall()
 
         call.enqueue(object : Callback<List<DayTripperModel>> {
             override fun onResponse(call: Call<List<DayTripperModel>>,
                                     response: Response<List<DayTripperModel>>
             ) {
                 dayTripList.value = response.body() as ArrayList<DayTripperModel>
-                Timber.i("Retrofit JSON = ${response.body()}")
+                Timber.i("Retrofit findAll() = ${response.body()}")
             }
 
             override fun onFailure(call: Call<List<DayTripperModel>>, t: Throwable) {
-                Timber.i("Retrofit Error : $t.message")
+                Timber.i("Retrofit findAll() Error : $t.message")
             }
         })
     }
 
-    override fun findById(id:String) : DayTripperModel? {
-        var foundDayTrip: DayTripperModel? = daytrips.find { it._id == id }
-        return foundDayTrip
+    override fun findAll(email: String, dayTripList: MutableLiveData<List<DayTripperModel>>) {
+
+        val call = DayTripClient.getApi().findall(email)
+
+        call.enqueue(object : Callback<List<DayTripperModel>> {
+            override fun onResponse(call: Call<List<DayTripperModel>>,
+                                    response: Response<List<DayTripperModel>>
+            ) {
+                dayTripList.value = response.body() as ArrayList<DayTripperModel>
+                Timber.i("Retrofit findAll() = ${response.body()}")
+            }
+
+            override fun onFailure(call: Call<List<DayTripperModel>>, t: Throwable) {
+                Timber.i("Retrofit findAll() Error : $t.message")
+            }
+        })
+    }
+
+    override fun findById(email: String, id: String, dayTrip: MutableLiveData<DayTripperModel>)   {
+
+        val call = DayTripClient.getApi().get(email,id)
+
+        call.enqueue(object : Callback<DayTripperModel> {
+            override fun onResponse(call: Call<DayTripperModel>, response: Response<DayTripperModel>) {
+                dayTrip.value = response.body() as DayTripperModel
+                Timber.i("Retrofit findById() = ${response.body()}")
+            }
+
+            override fun onFailure(call: Call<DayTripperModel>, t: Throwable) {
+                Timber.i("Retrofit findById() Error : $t.message")
+            }
+        })
     }
 
     override fun create(dayTrip: DayTripperModel) {
-        val call = DayTripClient.getApi().post(dayTrip)
+        val call = DayTripClient.getApi().post(dayTrip.email,dayTrip)
 
         call.enqueue(object : Callback<DayTripWrapper> {
             override fun onResponse(call: Call<DayTripWrapper>,
@@ -61,11 +88,10 @@ object DayTripManager: DayTripStore {
                 Timber.i("Retrofit Error : $t.message")
             }
         })
-        logAll()
     }
 
-    override fun delete(id: String) {
-        val call = DayTripClient.getApi().delete(id)
+    override fun delete(email: String,id: String) {
+        val call = DayTripClient.getApi().delete(email,id)
 
         call.enqueue(object : Callback<DayTripWrapper> {
             override fun onResponse(call: Call<DayTripWrapper>,
@@ -85,12 +111,25 @@ object DayTripManager: DayTripStore {
     }
 
 
-    override fun deleteAll(){
-        daytrips.clear()
+    override fun update(email: String,id: String, dayTrip: DayTripperModel) {
+
+        val call = DayTripClient.getApi().put(email,id,dayTrip)
+
+        call.enqueue(object : Callback<DayTripWrapper> {
+            override fun onResponse(call: Call<DayTripWrapper>,
+                                    response: Response<DayTripWrapper>
+            ) {
+                val dayTripWrapper = response.body()
+                if (dayTripWrapper != null) {
+                    Timber.i("Retrofit Update ${dayTripWrapper.message}")
+                    Timber.i("Retrofit Update ${dayTripWrapper.data.toString()}")
+                }
+            }
+
+            override fun onFailure(call: Call<DayTripWrapper>, t: Throwable) {
+                Timber.i("Retrofit Update Error : $t.message")
+            }
+        })
     }
 
-
-    fun logAll() {
-        daytrips.forEach{ i("${it}") }
-    }
 }

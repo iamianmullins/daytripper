@@ -36,11 +36,13 @@ class DayTripperAdapter constructor(private var dayTrips: ArrayList<DayTripperMo
 
     override fun getItemCount(): Int = dayTrips.size
 
-    inner class MainHolder(val binding : CardDaytripBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class MainHolder(val binding : CardDaytripBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(dayTrip: DayTripperModel, listener: DayTripListener) {
-            binding.root.tag = dayTrip._id
+
             binding.dayTrip = dayTrip
+            binding.root.tag = dayTrip
             binding.imageIcon.setImageResource(R.drawable.explorericon)
 
             binding.root.setOnClickListener { listener.onDayTripClick(dayTrip) }
