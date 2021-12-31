@@ -12,6 +12,8 @@ class ReportViewModel : ViewModel() {
 
     private val dayTripsList = MutableLiveData<List<DayTripperModel>>()
 
+    var readOnly = MutableLiveData(false)
+
     val observableDayTripsList: LiveData<List<DayTripperModel>>
         get() = dayTripsList
 
@@ -22,6 +24,7 @@ class ReportViewModel : ViewModel() {
     }
 
     fun load() {
+        readOnly.value = false
         try {
             FirebaseDBManager.findAll(liveFirebaseUser.value?.uid!!,
                 dayTripsList)
@@ -29,6 +32,17 @@ class ReportViewModel : ViewModel() {
         }
         catch (e: Exception) {
             Timber.i("Retrofit Error : $e.message")
+        }
+    }
+
+    fun loadAll() {
+        try {
+            readOnly.value = true
+            FirebaseDBManager.findAll(dayTripsList)
+            Timber.i("Report LoadAll Success : ${dayTripsList.value.toString()}")
+        }
+        catch (e: Exception) {
+            Timber.i("Report LoadAll Error : $e.message")
         }
     }
 

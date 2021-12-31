@@ -18,6 +18,7 @@ data class DayTripperModel(
     var timest: String = "",
     var region: String = "",
     var target: String = "",
+    var profilepic: String = "",
     var email: String? = "joe@bloggs.com") : Parcelable
 {
     @Exclude
@@ -33,6 +34,7 @@ data class DayTripperModel(
             "timest" to timest,
             "region" to region,
             "target" to target,
+            "profilepic" to profilepic,
             "email" to email
         )
     }

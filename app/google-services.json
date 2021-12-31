@@ -1,34 +1,42 @@
 {
   "project_info": {
-    "project_number": "726443584908",
-    "firebase_url": "https://daytripper-54ca3-default-rtdb.europe-west1.firebasedatabase.app",
-    "project_id": "daytripper-54ca3",
-    "storage_bucket": "daytripper-54ca3.appspot.com"
+    "project_number": "335041895328",
+    "firebase_url": "https://daytripper-2b4c0-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "daytripper-2b4c0",
+    "storage_bucket": "daytripper-2b4c0.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:726443584908:android:45d97c03034e8094883aa9",
+        "mobilesdk_app_id": "1:335041895328:android:999cef4a57c5dcbf1822c5",
         "android_client_info": {
           "package_name": "org.wit.daytripper"
         }
       },
       "oauth_client": [
         {
-          "client_id": "726443584908-0psl15l1sfasndqgu2jroseilvirsi4j.apps.googleusercontent.com",
+          "client_id": "335041895328-lm06ujet4kj0csjk8qbi0sebl9kmhph3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.wit.daytripper",
+            "certificate_hash": "39fc3f190fea64c753049deee340b5ef8894d58d"
+          }
+        },
+        {
+          "client_id": "335041895328-s9vf8cal8n6gc857l2vfjn33gbdrs0tr.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBHfjQM63YYmJ6pYn3vDtPQwLVV6QoRhdk"
+          "current_key": "AIzaSyB-0jvRpiznvO9FcINn32lgR8k-vvA3QOA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "726443584908-0psl15l1sfasndqgu2jroseilvirsi4j.apps.googleusercontent.com",
+              "client_id": "335041895328-869adlc6kmoof7oaudkktkmuot4b2a2q.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
