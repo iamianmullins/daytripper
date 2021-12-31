@@ -1,9 +1,11 @@
 package org.wit.daytripper.ui.home
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
@@ -16,8 +18,10 @@ import androidx.lifecycle.Observer
 import com.google.firebase.auth.FirebaseUser
 import com.squareup.picasso.Picasso
 import org.wit.daytripper.databinding.NavHeaderBinding
+import org.wit.daytripper.firebase.FirebaseImageManager
 import org.wit.daytripper.helpers.customTransformation
 import org.wit.daytripper.ui.auth.Login
+import timber.log.Timber
 
 class Home : AppCompatActivity() {
 
@@ -26,6 +30,7 @@ class Home : AppCompatActivity() {
     private lateinit var navHeaderBinding : NavHeaderBinding
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var loggedInViewModel : LoggedInViewModel
+    private lateinit var headerView : View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,14 +52,23 @@ class Home : AppCompatActivity() {
 
         val navView = homeBinding.navView
         navView.setupWithNavController(navController)
+
+        initNavHeader()
+    }
+
+    private fun initNavHeader() {
+        Timber.i("DX Init Nav Header")
+        headerView = homeBinding.navView.getHeaderView(0)
+        navHeaderBinding = NavHeaderBinding.bind(headerView)
     }
 
     public override fun onStart() {
         super.onStart()
         loggedInViewModel = ViewModelProvider(this).get(LoggedInViewModel::class.java)
-        loggedInViewModel.liveFirebaseUser.observe(this, Observer { firebaseUser ->
-            if (firebaseUser != null)
-                updateNavHeader(loggedInViewModel.liveFirebaseUser.value!!)
+        loggedInViewModel.liveFirebaseUser.observe(this, { firebaseUser ->
+            if (firebaseUser != null) {
+                updateNavHeader(firebaseUser)
+            }
         })
 
         loggedInViewModel.loggedOut.observe(this, Observer { loggedout ->
@@ -66,13 +80,35 @@ class Home : AppCompatActivity() {
     }
 
     private fun updateNavHeader(currentUser: FirebaseUser) {
-        var headerView = homeBinding.navView.getHeaderView(0)
-        navHeaderBinding = NavHeaderBinding.bind(headerView)
-        Picasso.get().load(currentUser.photoUrl)
-            .resize(200, 200)
-            .transform(customTransformation())
-            .centerCrop()
-            .into(navHeaderBinding.navHeaderImage)
+        FirebaseImageManager.imageUri.observe(this, { result ->
+            if(result == Uri.EMPTY) {
+                Timber.i("DX NO Existing imageUri")
+                if (currentUser.photoUrl != null) {
+                    //if you're a google user
+                    FirebaseImageManager.updateUserImage(
+                        currentUser.uid,
+                        currentUser.photoUrl,
+                        navHeaderBinding.navHeaderImage,
+                        false)
+                }
+                else
+                {
+                    Timber.i("DX Loading Existing Default imageUri")
+                    FirebaseImageManager.updateDefaultImage(
+                        currentUser.uid,
+                        R.drawable.explorericon,
+                        navHeaderBinding.navHeaderImage)
+                }
+            }
+            else // load existing image from firebase
+            {
+                Timber.i("DX Loading Existing imageUri")
+                FirebaseImageManager.updateUserImage(
+                    currentUser.uid,
+                    FirebaseImageManager.imageUri.value,
+                    navHeaderBinding.navHeaderImage, false)
+            }
+        })
         navHeaderBinding.navHeaderEmail.text = currentUser.email
         if(currentUser.displayName != null)
             navHeaderBinding.navHeaderName.text = currentUser.displayName

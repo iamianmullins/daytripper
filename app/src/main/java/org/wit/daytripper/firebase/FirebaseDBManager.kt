@@ -10,8 +10,28 @@ import timber.log.Timber
 var database: DatabaseReference = FirebaseDatabase.getInstance().reference
 
 object FirebaseDBManager : DayTripStore {
-    override fun findAll(dayTripList: MutableLiveData<DayTripperModel>) {
-        TODO("Not yet implemented")
+
+
+    override fun findAll(dayTripList: MutableLiveData<List<DayTripperModel>>) {
+        database.child("daytrips")
+            .addValueEventListener(object : ValueEventListener {
+                override fun onCancelled(error: DatabaseError) {
+                    Timber.i("Firebase DayTrip error : ${error.message}")
+                }
+
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val localList = ArrayList<DayTripperModel>()
+                    val children = snapshot.children
+                    children.forEach {
+                        val daytrip = it.getValue(DayTripperModel::class.java)
+                        localList.add(daytrip!!)
+                    }
+                    database.child("daytrips")
+                        .removeEventListener(this)
+
+                    dayTripList.value = localList
+                }
+            })
     }
 
     override fun findAll(userid: String, dayTripList: MutableLiveData<List<DayTripperModel>>) {
