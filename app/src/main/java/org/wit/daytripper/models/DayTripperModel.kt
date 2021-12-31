@@ -1,23 +1,39 @@
 package org.wit.daytripper.models
 
-import android.net.Uri
 import android.os.Parcelable
+import com.google.firebase.database.Exclude
+import com.google.firebase.database.IgnoreExtraProperties
 import kotlinx.parcelize.Parcelize
-import java.time.LocalDateTime
 
+@IgnoreExtraProperties
 @Parcelize
 data class DayTripperModel(
-    var id: Long = 0,
-    var title: String = "",
-    var description: String = "",
-    var image: Uri = Uri.EMPTY,
+    var uid: String? = "",
+    var title: String = "N/A",
+    var description: String = "N/A",
     var rating: Double = 0.00,
+    var likes: Int = 0,
     var lat: Double = 0.0,
     var lng: Double = 0.0,
     var timest: String = "",
-    var zoom: Float = 0f) : Parcelable
-
-@Parcelize
-data class Location(var lat: Double = 0.0,
-                    var lng: Double = 0.0,
-                    var zoom: Float = 0f) : Parcelable
+    var region: String = "",
+    var target: String = "",
+    var email: String? = "joe@bloggs.com") : Parcelable
+{
+    @Exclude
+    fun toMap(): Map<String, Any?> {
+        return mapOf(
+            "uid" to uid,
+            "title" to title,
+            "description" to description,
+            "rating" to rating,
+            "likes" to likes,
+            "lat" to lat,
+            "lng" to lng,
+            "timest" to timest,
+            "region" to region,
+            "target" to target,
+            "email" to email
+        )
+    }
+}

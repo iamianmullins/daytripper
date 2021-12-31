@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "726443584908",
+    "firebase_url": "https://daytripper-54ca3-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "daytripper-54ca3",
+    "storage_bucket": "daytripper-54ca3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:726443584908:android:45d97c03034e8094883aa9",
+        "android_client_info": {
+          "package_name": "org.wit.daytripper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "726443584908-0psl15l1sfasndqgu2jroseilvirsi4j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHfjQM63YYmJ6pYn3vDtPQwLVV6QoRhdk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "726443584908-0psl15l1sfasndqgu2jroseilvirsi4j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

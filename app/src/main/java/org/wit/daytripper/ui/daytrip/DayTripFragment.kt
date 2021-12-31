@@ -1,14 +1,15 @@
-package org.wit.daytripper.fragments
+package org.wit.daytripper.ui.daytrip
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.activity.result.ActivityResultLauncher
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.snackbar.Snackbar
 
@@ -18,23 +19,19 @@ import org.wit.daytripper.databinding.FragmentDaytripBinding
 import org.wit.daytripper.helpers.getTime
 import org.wit.daytripper.main.MainApp
 import org.wit.daytripper.models.DayTripperModel
-import timber.log.Timber
-import timber.log.Timber.i
-
+import org.wit.daytripper.ui.auth.LoggedInViewModel
+import org.wit.daytripper.ui.report.ReportViewModel
 
 class DayTripFragment : Fragment() {
 
-    lateinit var app: MainApp
     private var _fragBinding: FragmentDaytripBinding? = null
     private val fragBinding get() = _fragBinding!!
-
-    private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
-    private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
+    private lateinit var dayTripViewModel: DayTripViewModel
+    private val reportViewModel: ReportViewModel by activityViewModels()
+    private val loggedInViewModel : LoggedInViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Timber.plant(Timber.DebugTree())
         super.onCreate(savedInstanceState)
-        app = activity?.application as MainApp
         setHasOptionsMenu(true)
     }
 
@@ -45,10 +42,28 @@ class DayTripFragment : Fragment() {
 
         _fragBinding = FragmentDaytripBinding.inflate(inflater, container, false)
         val root = fragBinding.root
+
+        dayTripViewModel = ViewModelProvider(this).get(DayTripViewModel::class.java)
+        dayTripViewModel.observableStatus.observe(viewLifecycleOwner, Observer {
+                status -> status?.let { render(status) }
+        })
+
         activity?.title = getString(R.string.action_create)
 
         setButtonListener(fragBinding)
         return root;
+    }
+
+    private fun render(status: Boolean) {
+        when (status) {
+            true -> {
+                view?.let {
+                    //Immediately return to Report
+                    findNavController().popBackStack()
+                }
+            }
+            false -> Toast.makeText(context,getString(R.string.dayTripError), Toast.LENGTH_LONG).show()
+        }
     }
 
     companion object {
@@ -59,21 +74,17 @@ class DayTripFragment : Fragment() {
             }
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _fragBinding = null
-    }
-
     fun setButtonListener(layout: FragmentDaytripBinding) {
         layout.btnAdd.setOnClickListener {
             val title = layout.dayTripTitle.text.toString()
             val description = layout.description.text.toString()
             val rating = layout.ratingBar.rating.toDouble()
+            val region = layout.spregion.selectedItem.toString()
+            val target = layout.sptarget.selectedItem.toString()
+            val likes = 0
             val timest = getTime()
+            val lat = 404.40400
+            val lng = 404.40400
             if (layout.dayTripTitle.length() < 2) {
                 Snackbar.make(it, R.string.enter_daytrip_title, Snackbar.LENGTH_LONG)
                     .show()
@@ -83,23 +94,22 @@ class DayTripFragment : Fragment() {
             } else if (layout.ratingBar.rating.toDouble() < 0.5) {
                 Snackbar.make(it, R.string.enter_daytrip_rating, Snackbar.LENGTH_LONG)
                     .show()
-            } else {
-                app.dayTrips.create(
-                    DayTripperModel(
-                        title = title,
-                        description = description,
-                        image = Uri.EMPTY,
-                        rating = rating,
-                        timest = timest,
-                        //Temporarily Hardcoded
-                        lat = 404.404,
-                        lng = 404.404
-                    )
-                )
-
+            }
+            dayTripViewModel.addDayTrip(loggedInViewModel.liveFirebaseUser,
+                DayTripperModel(
+                title = title,
+                description = description,
+                rating = rating,
+                likes = likes,
+                timest = timest,
+                region = region,
+                target = target,
+                lat = lat,
+                lng = lng,
+                email = loggedInViewModel.liveFirebaseUser.value?.email!!))
             Snackbar.make(it, R.string.success_message, Snackbar.LENGTH_LONG)
                 .show()
-            }
+
      }
     }
 
@@ -112,6 +122,19 @@ class DayTripFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return NavigationUI.onNavDestinationSelected(item,
             requireView().findNavController()) || super.onOptionsItemSelected(item)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val reportViewModel = ViewModelProvider(this).get(ReportViewModel::class.java)
+        reportViewModel.observableDayTripsList.observe(viewLifecycleOwner, Observer {
+        })
+    }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _fragBinding = null
     }
 
 }
