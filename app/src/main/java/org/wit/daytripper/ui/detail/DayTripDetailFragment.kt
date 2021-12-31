@@ -29,25 +29,25 @@ class DayTripDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         _fragBinding = DayTripDetailFragmentBinding.inflate(inflater, container, false)
         val root = fragBinding.root
-
-        fragBinding.editDayTripButton.setOnClickListener {
-            detailViewModel.updateDayTrip(loggedInViewModel.liveFirebaseUser.value?.email!!,
-                args.dayTripId, fragBinding.daytripvm?.observableDayTrip!!.value!!)
-            findNavController().navigateUp()
-        }
-
-        fragBinding.deleteDayTripButton.setOnClickListener {
-            reportViewModel.delete(loggedInViewModel.liveFirebaseUser.value?.email!!,
-                detailViewModel.observableDayTrip.value?._id!!)
-            findNavController().navigateUp()
-        }
 
         detailViewModel = ViewModelProvider(this).get(DayTripDetailViewModel::class.java)
         detailViewModel.observableDayTrip.observe(viewLifecycleOwner, Observer { render() })
 
+        fragBinding.editDayTripButton.setOnClickListener {
+            detailViewModel.updateDayTrip(loggedInViewModel.liveFirebaseUser.value?.uid!!,
+                args.dayTripId, fragBinding.daytripvm?.observableDayTrip!!.value!!)
+            reportViewModel.load()
+            findNavController().navigateUp()
+
+        }
+
+        fragBinding.deleteDayTripButton.setOnClickListener {
+            reportViewModel.delete(loggedInViewModel.liveFirebaseUser.value?.uid!!,
+                detailViewModel.observableDayTrip.value?.uid!!)
+            findNavController().navigateUp()
+        }
         return root
     }
 
@@ -57,7 +57,7 @@ class DayTripDetailFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        detailViewModel.getDayTrip(loggedInViewModel.liveFirebaseUser.value?.email!!,
+        detailViewModel.getDayTrip(loggedInViewModel.liveFirebaseUser.value?.uid!!,
             args.dayTripId)
     }
 

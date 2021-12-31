@@ -25,6 +25,11 @@
         <item name="colorControlActivated">@color/rb_colorActive</item>
     </style>
 
+    <style name="RatingBarStatic" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/rb_colorActive</item>
+        <item name="colorControlActivated">@color/rb_colorActive</item>
+    </style>
+
     <style name="Theme.DayTripper.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.DayTripper.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

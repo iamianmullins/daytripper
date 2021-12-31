@@ -40,11 +40,11 @@ class DayTripperAdapter constructor(private var dayTrips: ArrayList<DayTripperMo
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(dayTrip: DayTripperModel, listener: DayTripListener) {
-
+            var num = dayTrip.rating
             binding.dayTrip = dayTrip
             binding.root.tag = dayTrip
-            binding.imageIcon.setImageResource(R.drawable.explorericon)
-
+            binding.imageIcon.setImageResource(R.drawable.lotr)
+            binding.ratingBarView.numStars= num.toInt()
             binding.root.setOnClickListener { listener.onDayTripClick(dayTrip) }
             binding.executePendingBindings()
         }

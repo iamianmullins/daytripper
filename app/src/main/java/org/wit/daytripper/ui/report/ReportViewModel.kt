@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseUser
-import org.wit.daytripper.models.DayTripManager
+import org.wit.daytripper.firebase.FirebaseDBManager
 import org.wit.daytripper.models.DayTripperModel
 import timber.log.Timber
 
@@ -23,7 +23,8 @@ class ReportViewModel : ViewModel() {
 
     fun load() {
         try {
-            DayTripManager.findAll(liveFirebaseUser.value?.email!!, dayTripsList)
+            FirebaseDBManager.findAll(liveFirebaseUser.value?.uid!!,
+                dayTripsList)
             Timber.i("Retrofit Success : $dayTripsList.value")
         }
         catch (e: Exception) {
@@ -31,9 +32,9 @@ class ReportViewModel : ViewModel() {
         }
     }
 
-    fun delete(email: String, id: String) {
+    fun delete(userid: String, id: String) {
         try {
-            DayTripManager.delete(email,id)
+            FirebaseDBManager.delete(userid,id)
             Timber.i("Report Delete Success")
         }
         catch (e: Exception) {

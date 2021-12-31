@@ -3,7 +3,8 @@ package org.wit.daytripper.ui.daytrip
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import org.wit.daytripper.models.DayTripManager
+import com.google.firebase.auth.FirebaseUser
+import org.wit.daytripper.firebase.FirebaseDBManager
 import org.wit.daytripper.models.DayTripperModel
 
 class DayTripViewModel : ViewModel() {
@@ -13,9 +14,11 @@ class DayTripViewModel : ViewModel() {
     val observableStatus: LiveData<Boolean>
         get() = status
 
-    fun addDayTrip(dayTrip: DayTripperModel) {
+    fun addDayTrip(firebaseUser: MutableLiveData<FirebaseUser>,
+                    dayTrip: DayTripperModel) {
         status.value = try {
-            DayTripManager.create(dayTrip)
+            //DayTripManager.create(dayTrip)
+            FirebaseDBManager.create(firebaseUser,dayTrip)
             true
         } catch (e: IllegalArgumentException) {
             false

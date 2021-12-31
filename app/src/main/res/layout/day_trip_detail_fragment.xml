@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
+<layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -9,7 +9,6 @@
             type="org.wit.daytripper.ui.detail.DayTripDetailViewModel" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -29,72 +28,83 @@
         android:id="@+id/editViewTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:text="@string/tripTitle"
         android:textAlignment="textStart"
         android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/editTitle"
         app:layout_constraintHorizontal_bias="0.115"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dayTripImage"  />
+        app:layout_constraintStart_toStartOf="@+id/dayTripImage"
+        app:layout_constraintTop_toBottomOf="@+id/dayTripImage" />
 
     <TextView
         android:id="@+id/editViewDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginTop="36dp"
         android:text="@string/tripDescription"
         android:textAlignment="textStart"
         android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/editDescription"
-        app:layout_constraintHorizontal_bias="0.2"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editViewTitle"
         app:layout_constraintTop_toBottomOf="@+id/editViewTitle" />
 
     <TextView
         android:id="@+id/editViewRating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="44dp"
         android:layout_marginEnd="8dp"
         android:text="@string/tripRating"
         android:textAlignment="textEnd"
         android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/editRating"
-        app:layout_constraintHorizontal_bias="0.2"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editViewTitle"
         app:layout_constraintTop_toBottomOf="@+id/editViewDescription" />
 
+
     <TextView
-        android:id="@+id/editViewLikes"
+        android:id="@+id/editViewTarget"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/tripLikes"
+        android:text="@string/tripTarget"
         android:textAlignment="textEnd"
         android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@+id/editLikes"
-        app:layout_constraintHorizontal_bias="0.2"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/editTarget"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editViewTitle"
         app:layout_constraintTop_toBottomOf="@+id/editViewRating" />
 
+    <TextView
+        android:id="@+id/editViewRegion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/tripRegion"
+        android:textAlignment="textEnd"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/editTarget"
+        app:layout_constraintHorizontal_bias="0.018"
+        app:layout_constraintStart_toStartOf="@+id/editViewTarget"
+        app:layout_constraintTop_toBottomOf="@+id/editViewTarget" />
 
     <EditText
         android:id="@+id/editTitle"
         android:layout_width="210dp"
         android:layout_height="50dp"
-        android:layout_marginTop="32dp"
         android:layout_marginEnd="36dp"
         android:backgroundTint="@color/color_primary"
         android:ems="10"
         android:inputType="text"
+        android:text="@={daytripvm.observableDayTrip.title}"
         android:textAlignment="viewStart"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dayTripImage"
-        android:text="@={daytripvm.observableDayTrip.title}"/>
+        app:layout_constraintTop_toBottomOf="@+id/dayTripImage" />
 
     <EditText
         android:id="@+id/editDescription"
@@ -105,11 +115,11 @@
         android:backgroundTint="@color/color_primary"
         android:ems="10"
         android:inputType="text"
+        android:text="@={daytripvm.observableDayTrip.description}"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTitle"
-        android:text="@={daytripvm.observableDayTrip.description}"
-        />
+        app:layout_constraintStart_toStartOf="@+id/editTitle"
+        app:layout_constraintTop_toBottomOf="@+id/editTitle" />
 
     <EditText
         android:id="@+id/editRating"
@@ -120,23 +130,46 @@
         android:backgroundTint="@color/color_primary"
         android:ems="10"
         android:inputType="number"
+
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editDescription"
         android:text="@={``+ daytripvm.observableDayTrip.rating}"/>
 
-    <TextView
-        android:id="@+id/editLikes"
+
+    <EditText
+        android:id="@+id/editTarget"
         android:layout_width="210dp"
         android:layout_height="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="36dp"
         android:backgroundTint="@color/color_primary"
         android:ems="10"
+        android:inputType="text"
+        android:text="@={daytripvm.observableDayTrip.target}"
+        android:textAlignment="viewStart"
         android:textSize="24sp"
-        android:text="@{``+ daytripvm.observableDayTrip.likes}"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editRating"
         app:layout_constraintTop_toBottomOf="@+id/editRating" />
+
+    <EditText
+        android:id="@+id/editRegion"
+        android:layout_width="210dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="36dp"
+        android:backgroundTint="@color/color_primary"
+        android:ems="10"
+        android:inputType="text"
+        android:text="@={daytripvm.observableDayTrip.region}"
+        android:textAlignment="viewStart"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editTarget"
+        app:layout_constraintTop_toBottomOf="@+id/editTarget" />
 
     <Button
         android:id="@+id/editDayTripButton"
@@ -159,5 +192,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/editDayTripButton" />
 
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

@@ -73,17 +73,18 @@ class ReportFragment : Fragment(), DayTripListener {
                 showLoader(loader,"Deleting Day Trip")
                 val adapter = fragBinding.recyclerView.adapter as DayTripperAdapter
                 adapter.removeAt(viewHolder.adapterPosition)
-                reportViewModel.delete(reportViewModel.liveFirebaseUser.value?.email!!,
-                    (viewHolder.itemView.tag as DayTripperModel)._id)
+                reportViewModel.delete(reportViewModel.liveFirebaseUser.value?.uid!!,
+                    (viewHolder.itemView.tag as DayTripperModel).uid!!)
                 hideLoader(loader)
             }
         }
-
         val swipeEditHandler = object : SwipeToEditCallback(requireContext()) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 onDayTripClick(viewHolder.itemView.tag as DayTripperModel)
             }
         }
+
+
         val itemTouchEditHelper = ItemTouchHelper(swipeEditHandler)
         itemTouchEditHelper.attachToRecyclerView(fragBinding.recyclerView)
         val itemTouchDeleteHelper = ItemTouchHelper(swipeDeleteHandler)
@@ -115,8 +116,14 @@ class ReportFragment : Fragment(), DayTripListener {
     }
 
     override fun onDayTripClick(dayTrip: DayTripperModel) {
-        val action = ReportFragmentDirections.actionReportFragmentToDayTripDetailFragment(dayTrip._id)
-        findNavController().navigate(action)
+        val action = dayTrip.uid?.let {
+            ReportFragmentDirections.actionReportFragmentToDayTripDetailFragment(
+                it
+            )
+        }
+        if (action != null) {
+            findNavController().navigate(action)
+        }
     }
 
 
