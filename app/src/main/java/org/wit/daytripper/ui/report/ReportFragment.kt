@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -96,6 +97,17 @@ class ReportFragment : Fragment(), DayTripListener {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_report, menu)
+
+        val item = menu.findItem(R.id.toggleAllDayTrips) as MenuItem
+        item.setActionView(R.layout.togglebutton_layout)
+        val toggleDayTrips: SwitchCompat = item.actionView.findViewById(R.id.toggleButton)
+        toggleDayTrips.isChecked = false
+
+        toggleDayTrips.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) reportViewModel.loadAll()
+            else reportViewModel.load()
+        }
+
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -104,8 +116,8 @@ class ReportFragment : Fragment(), DayTripListener {
             requireView().findNavController()) || super.onOptionsItemSelected(item)
     }
 
-    private fun render(dayTrips: ArrayList<DayTripperModel>) {
-        fragBinding.recyclerView.adapter = DayTripperAdapter(dayTrips ,this)
+    private fun render(dayTrips: ArrayList<DayTripperModel>, ) {
+        fragBinding.recyclerView.adapter = DayTripperAdapter(dayTrips,this,reportViewModel.readOnly.value!!)
         if (dayTrips.isEmpty()) {
             fragBinding.recyclerView.visibility = View.GONE
             fragBinding.dayTripsNotFound.visibility = View.VISIBLE
@@ -149,9 +161,13 @@ class ReportFragment : Fragment(), DayTripListener {
             fragBinding.swiperefresh.isRefreshing = true
             showLoader(loader,"Downloading DayTrips")
             reportViewModel.load()
-
+            if(reportViewModel.readOnly.value!!)
+                reportViewModel.loadAll()
+            else
+                reportViewModel.load()
         }
     }
+
 
     fun checkSwipeRefresh() {
         if (fragBinding.swiperefresh.isRefreshing)

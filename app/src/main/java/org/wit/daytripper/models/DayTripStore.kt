@@ -5,7 +5,7 @@ import com.google.firebase.auth.FirebaseUser
 
 interface DayTripStore {
     fun findAll(dayTripList:
-                MutableLiveData<DayTripperModel>)
+                MutableLiveData<List<DayTripperModel>>)
     fun findAll(userid:String,
                 dayTripList:
                 MutableLiveData<List<DayTripperModel>>)

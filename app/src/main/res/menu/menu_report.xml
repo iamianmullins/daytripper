@@ -10,6 +10,11 @@
         android:titleCondensed="titleCondensed_createtrip"
         />
     <item
+        android:id="@+id/toggleAllDayTrips"
+        android:title=""
+        app:actionLayout="@layout/togglebutton_layout"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/item_deleteSubMenu"
         android:title="@string/menu_deleteTrips"
         app:showAsAction="never">
