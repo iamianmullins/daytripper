@@ -14,7 +14,9 @@ import org.wit.daytripper.databinding.HomeBinding
 import org.wit.daytripper.ui.auth.LoggedInViewModel
 import androidx.lifecycle.Observer
 import com.google.firebase.auth.FirebaseUser
+import com.squareup.picasso.Picasso
 import org.wit.daytripper.databinding.NavHeaderBinding
+import org.wit.daytripper.helpers.customTransformation
 import org.wit.daytripper.ui.auth.Login
 
 class Home : AppCompatActivity() {
@@ -66,7 +68,14 @@ class Home : AppCompatActivity() {
     private fun updateNavHeader(currentUser: FirebaseUser) {
         var headerView = homeBinding.navView.getHeaderView(0)
         navHeaderBinding = NavHeaderBinding.bind(headerView)
+        Picasso.get().load(currentUser.photoUrl)
+            .resize(200, 200)
+            .transform(customTransformation())
+            .centerCrop()
+            .into(navHeaderBinding.navHeaderImage)
         navHeaderBinding.navHeaderEmail.text = currentUser.email
+        if(currentUser.displayName != null)
+            navHeaderBinding.navHeaderName.text = currentUser.displayName
     }
 
     override fun onSupportNavigateUp(): Boolean {
