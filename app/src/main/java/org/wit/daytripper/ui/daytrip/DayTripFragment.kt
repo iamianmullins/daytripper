@@ -79,6 +79,8 @@ class DayTripFragment : Fragment() {
             val title = layout.dayTripTitle.text.toString()
             val description = layout.description.text.toString()
             val rating = layout.ratingBar.rating.toDouble()
+            val region = layout.spregion.selectedItem.toString()
+            val target = layout.sptarget.selectedItem.toString()
             val likes = 0
             val timest = getTime()
             val lat = 404.40400
@@ -93,12 +95,15 @@ class DayTripFragment : Fragment() {
                 Snackbar.make(it, R.string.enter_daytrip_rating, Snackbar.LENGTH_LONG)
                     .show()
             }
-            dayTripViewModel.addDayTrip(DayTripperModel(
+            dayTripViewModel.addDayTrip(loggedInViewModel.liveFirebaseUser,
+                DayTripperModel(
                 title = title,
                 description = description,
                 rating = rating,
                 likes = likes,
                 timest = timest,
+                region = region,
+                target = target,
                 lat = lat,
                 lng = lng,
                 email = loggedInViewModel.liveFirebaseUser.value?.email!!))

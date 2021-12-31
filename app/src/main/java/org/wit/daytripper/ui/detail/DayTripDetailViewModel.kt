@@ -3,7 +3,7 @@ package org.wit.daytripper.ui.detail
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import org.wit.daytripper.models.DayTripManager
+import org.wit.daytripper.firebase.FirebaseDBManager
 import org.wit.daytripper.models.DayTripperModel
 import timber.log.Timber
 import java.lang.Exception
@@ -15,9 +15,9 @@ class DayTripDetailViewModel : ViewModel() {
         get() = dayTrip
         set(value) {dayTrip.value = value.value}
 
-    fun getDayTrip(email:String, id: String) {
+    fun getDayTrip(userid:String, id: String) {
         try {
-            DayTripManager.findById(email, id, dayTrip)
+            FirebaseDBManager.findById(userid, id, dayTrip)
             Timber.i("Detail getDayTrip() Success : ${dayTrip.value.toString()}")
         }
         catch (e: Exception) {
@@ -25,9 +25,9 @@ class DayTripDetailViewModel : ViewModel() {
         }
     }
 
-    fun updateDayTrip(email:String, id: String,dayTrip: DayTripperModel) {
+    fun updateDayTrip(userid:String, id: String,dayTrip: DayTripperModel) {
         try {
-            DayTripManager.update(email, id, dayTrip)
+            FirebaseDBManager.update(userid, id, dayTrip)
             Timber.i("Detail update() Success : $dayTrip")
         }
         catch (e: Exception) {
