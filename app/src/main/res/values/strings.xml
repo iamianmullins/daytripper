@@ -16,15 +16,48 @@
     <string name="button_location">Set Location</string>
     <string name="image_description">DayTipper Image</string>
 
+
+    <string name="region">County</string>
+    <string name="target">Target Group</string>
+
     <!--Spinner-->
     <string-array name="regions">
-        <item>Midlands</item>
-        <item>North East</item>
-        <item>North West</item>
-        <item>South East</item>
-        <item>South West</item>
+        <item>County</item>
+        <item>Antrim</item>
+        <item>Armagh</item>
+        <item>Carlow</item>
+        <item>Cavan</item>
+        <item>Clare</item>
+        <item>Cork</item>
+        <item>Derry</item>
+        <item>Donegal</item>
+        <item>Down</item>
+        <item>Dublin</item>
+        <item>Fermanagh</item>
+        <item>Galway</item>
+        <item>Kerry</item>
+        <item>Kildare</item>
+        <item>Kilkenny</item>
+        <item>Laois</item>
+        <item>Leitrim</item>
+        <item>Limerick</item>
+        <item>Longford</item>
+        <item>Louth</item>
+        <item>Mayo</item>
+        <item>Meath</item>
+        <item>Monaghan</item>
+        <item>Offaly</item>
+        <item>Roscommon</item>
+        <item>Sligo</item>
+        <item>Tipperary</item>
+        <item>Tyrone</item>
+        <item>Waterford</item>
+        <item>Westmeath</item>
+        <item>Wexford</item>
+        <item>Wicklow</item>
     </string-array>
     <string-array name="target">
+        <item>Target Group</item>
         <item>Couples</item>
         <item>Elderly</item>
         <item>Families</item>
@@ -49,6 +82,9 @@
     <string name="enter_daytrip_title"> Please enter a Day Trip Name </string>
     <string name="enter_daytrip_description"> Please enter a Day Trip Description </string>
     <string name="enter_daytrip_rating"> Please enter a Day Trip Rating </string>
+    <string name="enter_daytrip_region"> Please select a county </string>
+    <string name="enter_daytrip_target"> Please select a target group </string>
+
     <string name="success_message"> Day Trip successfully added </string>
     <string name="delete_message"> Day Trip successfully deleted </string>
     <string name="dayTripsNotFound">No Day Trips found...\nStart exploring!</string>

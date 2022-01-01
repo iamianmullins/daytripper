@@ -91,24 +91,34 @@ class DayTripFragment : Fragment() {
             } else if (layout.description.length() < 2) {
                 Snackbar.make(it, R.string.enter_daytrip_description, Snackbar.LENGTH_LONG)
                     .show()
-            } else if (layout.ratingBar.rating.toDouble() < 0.5) {
+            } else if (layout.ratingBar.rating.toDouble() < 1) {
                 Snackbar.make(it, R.string.enter_daytrip_rating, Snackbar.LENGTH_LONG)
                     .show()
-            }
-            dayTripViewModel.addDayTrip(loggedInViewModel.liveFirebaseUser,
-                DayTripperModel(
-                title = title,
-                description = description,
-                rating = rating,
-                likes = likes,
-                timest = timest,
-                region = region,
-                target = target,
-                lat = lat,
-                lng = lng,
-                email = loggedInViewModel.liveFirebaseUser.value?.email!!))
+            } else if (layout.spregion.selectedItem.toString() == "County") {
+                Snackbar.make(it, R.string.enter_daytrip_region, Snackbar.LENGTH_LONG)
+                    .show()
+            } else if (layout.spregion.selectedItem.toString() == "Target Group") {
+                Snackbar.make(it, R.string.enter_daytrip_target, Snackbar.LENGTH_LONG)
+                    .show()
+            } else {
+                dayTripViewModel.addDayTrip(
+                    loggedInViewModel.liveFirebaseUser,
+                    DayTripperModel(
+                        title = title,
+                        description = description,
+                        rating = rating,
+                        likes = likes,
+                        timest = timest,
+                        region = region,
+                        target = target,
+                        lat = lat,
+                        lng = lng,
+                        email = loggedInViewModel.liveFirebaseUser.value?.email!!
+                    )
+                )
             Snackbar.make(it, R.string.success_message, Snackbar.LENGTH_LONG)
                 .show()
+        }
 
      }
     }
