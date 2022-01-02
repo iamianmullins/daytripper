@@ -13,8 +13,10 @@
         <action
             android:id="@+id/action_dayTripFragment_to_reportFragment"
             app:destination="@id/reportFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim" />
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/reportFragment"
@@ -24,11 +26,17 @@
         <action
             android:id="@+id/action_reportFragment_to_dayTripFragment"
             app:destination="@id/dayTripFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim" />
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
         <action
             android:id="@+id/action_reportFragment_to_dayTripDetailFragment"
-            app:destination="@id/dayTripDetailFragment" />
+            app:destination="@id/dayTripDetailFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
@@ -42,7 +50,11 @@
         tools:layout="@layout/day_trip_detail_fragment" >
         <action
             android:id="@+id/action_dayTripDetailFragment_to_reportFragment"
-            app:destination="@id/reportFragment" />
+            app:destination="@id/reportFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
         <argument
             android:name="dayTripId"
             app:argType="string" />
