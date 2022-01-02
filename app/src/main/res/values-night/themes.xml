@@ -18,4 +18,14 @@
         <item name="fullscreenBackgroundColor">@color/color_primary</item>
         <item name="fullscreenTextColor">@color/color_secondary</item>
     </style>
+
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/rb_color</item>
+        <item name="colorControlActivated">@color/rb_colorActive</item>
+    </style>
+
+    <style name="RatingBarStatic" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/rb_colorActive</item>
+        <item name="colorControlActivated">@color/rb_colorActive</item>
+    </style>
 </resources>
